@@ -1,0 +1,33 @@
+@startuml "diagramaColaboracion"
+
+skinparam noteBackgroundColor transparent
+skinparam noteBorderColor transparent
+hide members
+object ": Actor" as user
+object ": Registro" as registro
+object ": Venta" as venta
+object ": LineasVenta" as lineasVenta
+object ": Catálogo" as catalogo
+
+user -r-> registro
+note on link
+    1. introducirArtículo
+    (ArticuloID id, int cant)
+end note
+
+registro -d-> catalogo
+note on link
+    2. espec = getEspecificacion(id)
+end note
+
+registro -r-> venta
+note on link
+    3. crearLineaVenta(spec, cant)
+end note
+
+venta -d-> lineasVenta
+note on link
+    4. añadir(new LineaVenta(espec, cant))
+end note
+
+@enduml

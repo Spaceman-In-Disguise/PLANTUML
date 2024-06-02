@@ -1,0 +1,39 @@
+@startuml "diagramaEstados"
+[*] --> State1
+State1: Encargar Producto
+
+State1 -r-> State2
+State2: Pagar
+State2 -d-> StateP
+state "ProcesandoPedido" as StateP{
+State3 : Colocando Pedido
+State3 -r-> State4
+State4 : CobrandoPedido
+
+state10: Dando Cervezas
+state11: Añadiendo Cliente a Lista Satisfechos
+state12: Enviando Recibo
+
+State4 -l-> RealizandoPedido
+
+state "RealizandoPedido" as RealizandoPedido{
+state5: Obteniendo Producto
+state choice1 <<choice>>
+state5 -d-> choice1: ¿Urgente?
+state7: Enviando Urgente
+state8: Enviando Ordinario
+
+choice1 -d-> state7: Sí
+choice1 -d-> state8: No
+
+state9: Realizado
+state7 --> state9
+state8 --> state9
+state9 -l-> state10
+state10 -l-> state11
+state11 -d-> state12
+
+}
+}
+
+@enduml
